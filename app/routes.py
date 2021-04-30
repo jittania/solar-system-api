@@ -15,7 +15,8 @@ def handle_planet(planet_id):
         return {
         "id": planet.id,
         "name": planet.name,
-        "description": planet.description
+        "description": planet.description,
+        "order": planet.order,
         }, 200
     
     return { #if the planet isn't found
@@ -34,18 +35,20 @@ def planets():
             planets_response.append({
                 "id": planet.id,
                 "name": planet.name,
-                "description": planet.description
+                "description": planet.description,
+                "order": planet.order
             })
         return jsonify(planets_response), 200
 
     else:
         request_body = request.get_json()
         new_planet = Planet(name = request_body["name"],
-                    description = request_body["description"])
+                    description = request_body["description"],
+                    order = request_body["order"])
 
     # add this model to the database. Commit these changes and make it happen
     db.session.add(new_planet)
     db.session.commit()
 
-    return (f"Planet {new_planet.title} successfully created"), 201
+    return (f"Planet {new_planet.name} successfully created"), 201
 
