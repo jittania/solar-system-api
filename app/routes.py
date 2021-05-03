@@ -1,10 +1,9 @@
-from flask import Blueprint
 from app import db
-from flask import request
-from flask import jsonify
-from .models.planet import Planet
+from app.models.planet import Planet
+from flask import request, Blueprint, make_response, jsonify
 
 planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
+
 
 @planets_bp.route("/<planet_id>", methods=["GET"], strict_slashes=False)
 def handle_planet(planet_id):
