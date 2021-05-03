@@ -10,6 +10,11 @@ def handle_planet(planet_id):
     # Try to find the planet with the given id
     planet = Planet.query.get(planet_id)
 
+    #=============================
+    if planet is None:
+        return make_response(f"Planet with id {planet_id} was not found", 404)
+    #=============================
+
     if request.method == "GET": 
         return {
         "id": planet.id,
@@ -35,10 +40,10 @@ def handle_planet(planet_id):
 
         return make_response(f"Planet #{planet.id} successfully deleted")
     
-    return { #if the planet isn't found
-        "message": f"Planet with id {planet_id} was not found",
-        "success": False,
-        }, 404
+    # return { #if the planet isn't found
+    #     "message": f"Planet with id {planet_id} was not found",
+    #     "success": False,
+    #     }, 404
 
 
 @planets_bp.route("", methods=["POST", "GET"])
