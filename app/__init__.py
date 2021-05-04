@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+
 # make a database/SQLAl object and a migrate object
 db = SQLAlchemy()
 migrate = Migrate()
